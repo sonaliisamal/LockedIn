@@ -82,7 +82,7 @@ export default function Sidebar() {
               <span className="text-xs font-bold text-white">SK</span>
             </div>
             <div className="flex-1 min-w-0">
-              <div className="text-xs font-bold text-zinc-200 truncate">Sonali Kumari</div>
+              <div className="text-xs font-bold text-zinc-200 truncate">Sonali Samal</div>
               <div className="text-[10px] text-zinc-500 truncate">Student</div>
             </div>
             <ChevronRight size={14} className="text-zinc-500" />
