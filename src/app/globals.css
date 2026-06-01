@@ -1,0 +1,34 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #020205;   
+  --color-surface: #09090f;      
+  --color-border-muted: #141421; 
+  
+  --color-brand-purple: #4f46e5; 
+  --color-brand-glow: #818cf8;   
+  
+  --background-image-hero-mesh: radial-gradient(circle at 80% 20%, rgba(79, 70, 229, 0.18) 0%, transparent 50%), radial-gradient(circle at 20% 80%, rgba(6, 182, 212, 0.05) 0%, transparent 40%);
+}
+
+@layer base {
+  body {
+    background-color: var(--color-background);
+    color: #e4e4e7;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #020205;
+}
+::-webkit-scrollbar-thumb {
+  background: #141421;
+  border-radius: 9999px;
+}

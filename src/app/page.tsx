@@ -1,35 +1,48 @@
+import React from 'react';
 import { CourseService } from '@/services/courses';
+import Sidebar from '@/components/dashboard/Sidebar';
+import BentoGrid from '@/components/dashboard/BentoGrid';
+import RightPanel from '@/components/dashboard/RightPanel';
+import { Bell } from 'lucide-react';
 
-// Force Next.js to bypass static cache and pull fresh live data from Supabase on every request
 export const revalidate = 0;
 
 export default async function DashboardPage() {
-  // Fetch live, strongly typed data straight from the Supabase client container
   const courses = await CourseService.getActiveCourses();
 
   return (
-    <main style={{ minHeight: '100vh', backgroundColor: '#0a0a0a', color: '#fff', padding: '2rem' }}>
-      {/* This is a temporary architectural viewport placeholder. 
-        In the upcoming UI phases, this cleanly fetched 'courses' array 
-        will be injected straight into our Bento Grid client components.
-      */}
-      <section style={{ maxWidth: '1200px', margin: '0 auto' }}>
-        <h1 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: '#eaeaea' }}>
-          Backend Layer Handshake: <span style={{ color: '#4ade80' }}>Connected</span>
-        </h1>
-        <p style={{ color: '#a3a3a3', marginBottom: '2rem' }}>
-          Database data loaded safely via Server Components.
-        </p>
-        
-        <details style={{ background: '#171717', padding: '1rem', borderRadius: '8px', border: '1px solid #262626' }}>
-          <summary style={{ cursor: 'pointer', color: '#60a5fa', fontWeight: '500' }}>
-            View Verified Live Payload ({courses.length} courses fetched)
-          </summary>
-          <pre style={{ marginTop: '1rem', fontSize: '0.85rem', color: '#cbd5e1', overflowX: 'auto' }}>
-            {JSON.stringify(courses, null, 2)}
-          </pre>
-        </details>
-      </section>
-    </main>
+    <div className="flex min-h-screen bg-background font-sans antialiased">
+      {/* 1. Left Navigation Menu column */}
+      <Sidebar />
+
+      {/* 2. Unified Scroll Content Viewport Wrapper */}
+      <main className="flex-1 overflow-y-auto px-4 py-6 sm:p-8 xl:pr-4">
+        <div className="max-w-350 mx-auto flex flex-col xl:flex-row gap-6 items-start">
+          
+          {/* Mobile/Tablet Inline Brand Header Track */}
+          <header className="w-full flex xl:hidden items-center justify-between border-b border-border-muted/60 pb-4 mb-2">
+            <div>
+              <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Workspace</span>
+              <h1 className="text-lg font-black text-white tracking-tight mt-0.5">Student Overview</h1>
+            </div>
+            <button className="p-2 rounded-xl bg-surface border border-border-muted text-zinc-400 relative">
+              <Bell size={16} />
+              <span className="absolute top-2 right-2 w-1.5 h-1.5 bg-orange-500 rounded-full" />
+            </button>
+          </header>
+
+          {/* Center Column Container Stack */}
+          <div className="flex-1 w-full">
+            <BentoGrid courses={courses} />
+          </div>
+
+          {/* 3. Right Dashboard Data Utility Panels Column */}
+          <div className="w-full xl:w-auto pt-2 xl:pt-0">
+            <RightPanel />
+          </div>
+
+        </div>
+      </main>
+    </div>
   );
 }
